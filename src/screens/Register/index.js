@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { KeyboardAvoidingView, View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 
@@ -9,7 +9,7 @@ export default Register = () => {
 
     const navigation = useNavigation()
 
-    return <View style={styles.container}>
+    return <KeyboardAvoidingView style={styles.container}>
         <Animatable.View
             animation="fadeInLeft"
             delay={500}
@@ -64,7 +64,7 @@ export default Register = () => {
             </TouchableOpacity>
 
         </Animatable.View>
-    </View>
+    </KeyboardAvoidingView>
 }
 
 const styles = StyleSheet.create({

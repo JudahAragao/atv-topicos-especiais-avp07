@@ -1,4 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { TouchableOpacity, Text, Alert } from "react-native";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Welcome from "../screens/Welcome";
 import Login from "../screens/Login";
@@ -23,6 +25,12 @@ export default Routes = () => {
         <Stack.Screen
             name="Register"
             component={Register}
+            options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+            name="HomeMenuBottomTab"
+            component={HomeMenuBottomTab}
             options={{ headerShown: false }}
         />
     </Stack.Navigator>

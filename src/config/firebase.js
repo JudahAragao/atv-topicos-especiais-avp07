@@ -1,19 +1,20 @@
 // Import the functions you need from the SDKs you need
-import firebase from 'firebase'
+import { initializeApp } from 'firebase/app';
+
+import { API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, PP_ID } from '@env';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: ""
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGING_SENDER_ID,
+  appId: PP_ID,
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-export default firebase
+export default app = initializeApp(firebaseConfig);
