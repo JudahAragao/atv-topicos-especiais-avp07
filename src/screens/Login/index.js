@@ -32,7 +32,7 @@ export default Login = () => {
     }
 
     const handleRegister = () => {
-        setInputUser({ email: '', senha: '' });
+        setInputUser({ email: '', password: '' });
         navigation.navigate('Register'); //Navega em pilha para tela Register
     }
 
@@ -118,20 +118,6 @@ export default Login = () => {
                 onChangeText={(value) => handleChangeText('password', value)}
             />
 
-            <TouchableOpacity
-                style={styles.button}
-                onPress={loginFirebase}
-            >
-                <Text style={styles.buttonText}>Entrar</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                style={styles.buttonRegister}
-                onPress={handleRegister}
-            >
-                <Text style={styles.buttonRegisterText}>Não tenho uma conta!</Text>
-            </TouchableOpacity>
-
             {statusLoginError === true
                 ?
                 <View style={styles.contentAlert}>
@@ -146,6 +132,19 @@ export default Login = () => {
                 <View></View>
             }
 
+            <TouchableOpacity
+                style={styles.button}
+                onPress={loginFirebase}
+            >
+                <Text style={styles.buttonText}>Entrar</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                style={styles.buttonRegister}
+                onPress={handleRegister}
+            >
+                <Text style={styles.buttonRegisterText}>Não tenho uma conta!</Text>
+            </TouchableOpacity>
 
         </Animatable.View>
     </KeyboardAvoidingView>
