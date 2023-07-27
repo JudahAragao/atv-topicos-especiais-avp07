@@ -42,7 +42,7 @@ export default Register = () => {
 
     // Checa campos de preenchimento obrigatório
     function requiredFields() {
-        if (!inputUser.name || !inputUser.phone || !inputUser.email || !inputUser.password || !passwordConfirm) {
+        if (!inputUser.email || !inputUser.password || !passwordConfirm) {
             return false;
         } else {
             return true;
@@ -71,43 +71,10 @@ export default Register = () => {
                 const auth = getAuth(app);
                 createUserWithEmailAndPassword(auth, inputUser.email, inputUser.password)
                     .then((userCredential) => {
-                        let userName = inputUser.name;
-                        let userEmail = inputUser.email;
-
-                        // Não atualiza phone por aqui por ser campo de autenticação, apenas displayName
-                        userCredential.user.updateProfile({
-                            displayName: inputUser.name,
-                            // photoURL: inputUser.photo, // Pode atualizar, mas não será usada
-                        });
-
-                        const db = app.firestore();
-                        const userDocRef = doc(db, 'Profiles', userCredential.user.uid);
-                        setDoc(userDocRef, {
-                            displayName: inputUser.name,
-                            email: inputUser.email,
-                            cellphone: inputUser.phone,
-                            userType: 'cliente',
+                        navigation.replace('HomeMenuBottomTab', {
+                            screen: 'Home',
+                            params: { uid: userCredential.user.uid, name: userCredential.user.displayName, email: userCredential.user.email }
                         })
-                            .then(() => {
-                                // Limpa variáveis de estado/inputs
-                                setInputUser({ name: '', email: '', phone: '', password: '' });
-                                setPasswordConfirm('');
-
-                                // Ao se registrar OK redireciona direto para tela Home (e não volta mais para login)
-                                // Uma vez que o usuário registrado é considerado logado
-                                // Lembrando que vai sem o displayName da credencial que não é obtido ao se registrar,
-                                // mesmo após ter invocado o método updateProfile
-                                // Porém no próximo Login o displayName é obtido já na credencial
-                                // Caso contrário teria que fazer o logout firebase.auth().signOut(); e voltar para tela Login
-                                navigation.replace('HomeMenuBottomTab', {
-                                    screen: 'Home',
-                                    params: { uid: userCredential.user.uid, name: userCredential.user.displayName, email: userCredential.user.email }
-                                })
-                            })
-                            .catch((error) => {
-                                // Tratar erros de registro no Firestore
-                                console.error('Erro ao salvar dados do usuário no Firestore:', error);
-                            });
                     })
                     .catch((error) => {
                         if (error.code === 'auth/email-already-in-use') {
@@ -146,24 +113,6 @@ export default Register = () => {
                 keyboardType="email-address"
                 textContentType="emailAddress"
                 autoCapitalize="none"
-
-            />
-
-            <Text style={styles.label}>Nome</Text>
-            <TextInput
-                placeholder="Digite seu Nome..."
-                style={styles.input}
-                value={inputUser.name}
-                onChangeText={(value) => handleChangeText('name', value)}
-            />
-
-            <Text style={styles.label}>Telefone</Text>
-            <TextInput
-                placeholder="Digite seu Telefone..."
-                style={styles.input}
-                value={inputUser.phone}
-                onChangeText={(value) => handleChangeText('phone', value)}
-                keyboardType="numeric"
             />
 
             <Text style={styles.label}>Senha</Text>
@@ -274,5 +223,17 @@ const styles = StyleSheet.create({
     },
     buttonLoginText: {
         color: '#A1A1A1'
-    }
+    },
+    contentAlert: {
+        marginTop: 5,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    warningAlert: {
+        paddingLeft: 2,
+        color: 'black',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
 })

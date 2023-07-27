@@ -204,5 +204,17 @@ const styles = StyleSheet.create({
     },
     buttonRegisterText: {
         color: '#A1A1A1'
-    }
+    },
+    contentAlert: {
+        marginTop: 5,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    warningAlert: {
+        paddingLeft: 2,
+        color: 'black',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
 })
